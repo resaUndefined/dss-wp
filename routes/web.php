@@ -14,3 +14,9 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+Route::post('/login/custom', 'LoginController@login')->name('login.custom');
+Route::get('/home', 'HomeController@index')->name('home');
+Route::resource('alternatif', 'AlternatifController');
+Route::resource('kriteria', 'KriteriaController');

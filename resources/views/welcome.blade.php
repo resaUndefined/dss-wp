@@ -5,11 +5,13 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>DSS WP</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
-
+        <link rel = "icon" href =  
+"https://1.bp.blogspot.com/-adPwkANrQu0/XWXmz-EQuqI/AAAAAAAAAiA/mgDMq0jgdd8K-UBpt5H7SRLmdifYkbXCgCLcBGAs/s1600/38.AMIKOMY.png" 
+        type = "image/x-icon">
         <!-- Styles -->
         <style>
             html, body {
@@ -71,23 +73,20 @@
                     @auth
                         <a href="{{ url('/home') }}">Home</a>
                     @else
-                        <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
+                        <a href="{{ route('login') }}"><i class="fas fa-user"></i> Login</a>
                     @endauth
                 </div>
             @endif
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    <img src="https://1.bp.blogspot.com/-adPwkANrQu0/XWXmz-EQuqI/AAAAAAAAAiA/mgDMq0jgdd8K-UBpt5H7SRLmdifYkbXCgCLcBGAs/s1600/38.AMIKOMY.png" style="width: 50%;">
                 </div>
 
                 <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                    <a href="https://home.amikom.id/">AMIKOM</a>
+                    <a href="http://mti.amikom.ac.id/">MTI AMIKOM</a>
+                    <a href="http://pjj.amikom.ac.id/">PJJ AMIKOM</a>
                 </div>
             </div>
         </div>
