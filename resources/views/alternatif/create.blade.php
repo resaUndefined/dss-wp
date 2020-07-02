@@ -1,6 +1,6 @@
 @extends('layouts.base')
 
-@section('title', 'Dashboard')
+@section('title', 'Tambah Alternatif')
 
 @section('content')
     <div class="right_col" role="main">

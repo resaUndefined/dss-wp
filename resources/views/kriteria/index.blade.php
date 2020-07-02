@@ -1,6 +1,6 @@
 @extends('layouts.base')
 
-@section('title', 'Dashboard')
+@section('title', 'Kriteria')
 
 @section('content')
     <div class="right_col" role="main">
@@ -68,9 +68,9 @@
                         <td>{{ $al->kode }}</td>
                         <td>{{ $al->nama }}</td>
                         <td>{{ $al->jenis }}</td>
-                        <td>{{ $al->bobot }} tahun</td>
+                        <td>{{ $al->bobot }}</td>
                         <td class="col-md-2">
-                          <a href="{{ route('kriteria.edit', $al->id) }}" type="button" class="btn btn-round btn-info btn-sm"><i class="fa fa-edit"></i> Edit</a>
+                          <a href="{{ route('kriteria.edit', $al->id) }}" type="button" class="btn btn-round btn-info btn-sm"><i class="fa fa-edit"></i> Detail</a>
                           <a href="javascript:;" data-toggle="modal" onclick="deleteData({{$al->id}})" 
                               data-target="#DeleteModal" class="btn btn-round btn-danger btn-sm"><i class="fa fa-trash"></i> Delete</a>
                         </td>
