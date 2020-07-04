@@ -224,10 +224,12 @@ class KriteriaController extends Controller
 
     public function sub_kriteria_edit($subKriteriaId)
     {
+        $subKriteriaEdit = SubKriteria::find($subKriteriaId);
         $subKriteria = SubKriteria::where(
                                         'id', '!=', $subKriteriaId
+                                    )->where(
+                                        'kriteria_id', '=', $subKriteriaEdit->kriteria_id
                                     )->get();
-        $subKriteriaEdit = SubKriteria::find($subKriteriaId);
 
         return view('kriteria.edit', [
             'subKriteria' => $subKriteria,

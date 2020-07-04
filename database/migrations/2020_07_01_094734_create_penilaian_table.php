@@ -18,7 +18,7 @@ class CreatePenilaianTable extends Migration
             $table->integer('alternatif_id')->unsigned();
             $table->integer('periode_id')->unsigned();
             $table->integer('kriteria_id');
-            $table->integer('sub_kriteria_id')->unsigned();
+            $table->integer('sub_kriteria_id')->unsigned()  ;
             $table->timestamps();
 
             $table->foreign('alternatif_id')->references('id')

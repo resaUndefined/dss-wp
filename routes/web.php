@@ -21,6 +21,7 @@ Route::group(['middleware' => ['web', 'auth']], function(){
 	Route::get('/home', 'HomeController@index')->name('home');
 	Route::resource('alternatif', 'AlternatifController');
 	Route::resource('kriteria', 'KriteriaController');
+	Route::resource('nilai-alternatif', 'NilaiAlternatifController');
 	Route::get(
 			'/sub-kriteria/{kriteria}/tambah',
 			'KriteriaController@sub_kriteria')->name('subkriteria.create');
@@ -33,4 +34,10 @@ Route::group(['middleware' => ['web', 'auth']], function(){
 	Route::put(
 			'/sub-kriteria/update',
 			'KriteriaController@sub_kriteria_update')->name('subkriteria.update');
+	Route::get(
+			'/penilaian/{periode}/edit/{alternatif}',
+			'NilaiAlternatifController@edit_penilaian')->name('penilaian.edit');
+	Route::put(
+			'/penilaian/{periode}/update/{alternatif}',
+			'NilaiAlternatifController@update_penilaian')->name('penilaian.update');
 });
