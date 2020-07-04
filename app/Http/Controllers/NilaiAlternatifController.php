@@ -272,4 +272,100 @@ class NilaiAlternatifController extends Controller
         return redirect()->route('nilai-alternatif.edit', $per_id)
                             ->with('sukses', 'Penilaian berhasil diupdate'); 
     }
+
+
+    public function proses_penilaian($periode)
+    {
+        $jumBobot = DB::table('kriteria')->sum('bobot');
+        $step1 = [];
+        $kriteria = Kriteria::all();
+        $alternatif = Alternatif::all();
+
+        // normalisasi bobot
+        foreach ($kriteria as $key => $k) {
+            $tmp = 0;
+            $tmp = $k->bobot/$jumBobot;
+            $step1[$k->kode] = $tmp;
+        }
+        
+        $step2 = [];
+        // step 2 rating kecocokan
+        foreach ($alternatif as $key => $al) {
+            $penilaianTmp = DB::table('penilaian')
+                        ->join('alternatif', 'alternatif.id', '=', 'penilaian.alternatif_id')
+                        ->join('sub_kriteria', 'sub_kriteria.id', '=', 'penilaian.sub_kriteria_id')
+                        ->join('kriteria', 'kriteria.id', '=', 'penilaian.kriteria_id')
+                        ->join('nilai_alternatif', 'nilai_alternatif.id', '=', 'penilaian.periode_id')
+                        ->where([
+                                        'penilaian.periode_id' => $periode,
+                                        'alternatif_id' => $al->id,
+                                ])
+                        ->select('penilaian.id', 'penilaian.sub_kriteria_id', 'kriteria.nama', 'kriteria.kode', 'penilaian.kriteria_id as kriteria_id', 'penilaian.alternatif_id', 'alternatif.nama as alternatif', 'sub_kriteria.keterangan', 'sub_kriteria.bobot as sub_bobot', 'kriteria.bobot','kriteria.jenis' )
+                        ->get();
+
+            foreach ($penilaianTmp as $kunci => $nilai) {
+                if(!isset($step2[$key])) {
+                    $step2[$key] = new \StdClass();
+                }
+                $step2[$key]->id = $nilai->id;
+                $step2[$key]->alternatif_id = $nilai->alternatif_id;
+                $step2[$key]->alternatif_nama = $nilai->alternatif;
+                $step2[$key]->kriteria_id[$kunci] = $nilai->kriteria_id;
+                $step2[$key]->sub_kriteria_id[$kunci] = $nilai->sub_kriteria_id;
+                $step2[$key]->kriteria[$kunci] = $nilai->nama;
+                $step2[$key]->kode[$kunci] = $nilai->kode;
+                $step2[$key]->keterangan[$kunci] = $nilai->keterangan;
+                $step2[$key]->sub_bobot[$kunci] = $nilai->sub_bobot;
+                $step2[$key]->bobot[$kunci] = $nilai->bobot;
+                $step2[$key]->jenis[$kunci] = $nilai->jenis;
+            }
+        }
+
+    // perhitungan vector S
+        $step3 = [];
+        $jumVectorS = 0;
+        foreach ($step2 as $key => $s) {
+            $remanen2 = null;
+            $tmp = null;
+            $tmp2 = 1;
+            if(!isset($step3[$key])) {
+                $step3[$key] = new \StdClass();
+            }
+            $step3[$key]->alternatif = $s->alternatif_nama;
+            foreach ($s->sub_bobot as $key2 => $nilai) {
+                $remanen = null;
+                if ($s->jenis[$key2] == 1) {
+                    $tmp = pow($nilai, $step1[$s->kode[$key2]]);
+                    $remanen = "(".$nilai."^".$step1[$s->kode[$key2]].")";
+                } else {
+                    $tmp = pow($nilai,-$step1[$s->kode[$key2]]);
+                    $remanen = "(".$nilai."^-".$step1[$s->kode[$key2]].")";
+                }
+                $tmp2 = $tmp2 * $tmp;
+                if (is_null($remanen2)) {
+                    $remanen2 = $remanen;
+                } else {
+                    $remanen2 =  $remanen2 . ' * '. $remanen;
+                }      
+            }
+            $step3[$key]->perhitungan = $remanen2;
+            $step3[$key]->nilai = $tmp2;
+            $jumVectorS+= $tmp2;
+        }
+        
+        // perhitungan vector V
+        $step4 = [];
+        foreach ($step3 as $key => $value) {
+            if(!isset($step4[$key])) {
+                $step4[$key] = new \StdClass();
+            }
+            $step4[$key]->nilai = $value->nilai/$jumVectorS;
+            $step4[$key]->perhitungan = $value->nilai.'/'.$jumVectorS;
+            $step4[$key]->alternatif = $value->alternatif;
+        }
+
+        // perankingan
+        $sort = collect($step4);
+        $ranking = $sort->sortByDesc('nilai');
+    }
 }

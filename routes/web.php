@@ -40,4 +40,7 @@ Route::group(['middleware' => ['web', 'auth']], function(){
 	Route::put(
 			'/penilaian/{periode}/update/{alternatif}',
 			'NilaiAlternatifController@update_penilaian')->name('penilaian.update');
+	Route::get(
+			'/penilaian/{periode}/proses',
+			'NilaiAlternatifController@proses_penilaian')->name('penilaian.proses');
 });

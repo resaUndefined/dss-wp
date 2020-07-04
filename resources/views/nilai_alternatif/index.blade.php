@@ -66,8 +66,8 @@
                         <td style="text-align: center;">Periode ke-{{ $na->periode }}</td>
                         <td style="text-align: center;">{{ date('d F Y', strtotime($na->waktu)) }}</td>
                         <td class="col-md-2" style="text-align: center;">
-                          <a href="{{ route('nilai-alternatif.edit', $na->id) }}" type="button" class="btn btn-round btn-info btn-sm"><i class="fa fa-edit"></i> Edit</a>
-                          <a href="#" type="button" class="btn btn-round btn-info btn-sm"><i class="fa fa-edit"></i> Proses</a>
+                          <a href="{{ route('nilai-alternatif.edit', $na->id) }}" type="button" class="btn btn-round btn-info btn-sm"><i class="fa fa-edit"></i> Detail</a>
+                          <a href="{{ route('penilaian.proses', $na->id) }}" type="button" class="btn btn-round btn-info btn-sm"><i class="fa fa-edit"></i> Proses</a>
                           <a href="javascript:;" data-toggle="modal" onclick="deleteData({{$na->id}})" 
                               data-target="#DeleteModal" class="btn btn-round btn-danger btn-sm"><i class="fa fa-trash"></i> Delete</a>
                         </td>
