@@ -26,7 +26,7 @@
       <div class="col-md-6 col-sm-6 col-xs-12">
         <div class="x_panel fixed_height_320">
           <div class="x_title">
-            <a href="#"><h2>Kriteria</h2></a>
+            <a href="{{ route('kriteria.index') }}"><h2>Kriteria</h2></a>
             <ul class="nav navbar-right panel_toolbox">
               <li class="pull-right"><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
               </li>
@@ -40,7 +40,7 @@
               </th>
               <th>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                  <p class="">Kriteria</p>
+                  <p class="pull-left"> </p>
                 </div>
               </th>
             </tr>
@@ -51,31 +51,13 @@
               <td>
                 <table class="tile_info">
                   <tbody>
-                    <tr>
-                        <td>
-                          <p>Laki-Laki </p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                          <p>Laki-Laki </p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                          <p>Laki-Laki </p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                          <p>Laki-Laki </p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                          <p>Laki-Laki </p>
-                        </td>
-                    </tr>
+                    @foreach ($kriteria as $key => $k)
+                      <tr>
+                          <td>
+                            <a href="{{ route('kriteria.edit', $k->id) }}"><p>{{ $k->nama }}</p></a>
+                          </td>
+                      </tr>
+                    @endforeach
                 </tbody></table>
               </td>
             </tr>
@@ -86,7 +68,7 @@
       <div class="col-md-6 col-sm-6 col-xs-12">
         <div class="x_panel fixed_height_320">
                   <div class="x_title">
-                    <a href="#"><h2>Alternatif</h2></a>
+                    <a href="{{ route('alternatif.index') }}"><h2>Alternatif</h2></a>
                     <ul class="nav navbar-right panel_toolbox">
                       <li class="pull-right"><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -118,13 +100,13 @@
                                 <td>
                                   <p>Laki-Laki </p>
                                 </td>
-                                <td>10</td>
+                                <td>{{ $laki }}</td>
                             </tr>
                             <tr>
                                 <td>
                                   <p>Perempuan</p>
                                 </td>
-                                <td>5</td>
+                                <td>{{ $perempuan }}</td>
                             </tr>
                         </tbody></table>
                       </td>
@@ -140,7 +122,7 @@
       <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
-                <h2>Data Periode <small>Penilaian WFH</small></h2>
+                <a href="{{ route('nilai-alternatif.index') }}"><h2>Data Periode <small>Penilaian WFH</small></h2></a>
                 <ul class="nav navbar-right panel_toolbox">
                     <li class="pull-right"><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
                 </ul>
@@ -157,24 +139,14 @@
                         </tr>
                     </thead>
                     <tbody>
+                      @foreach ($nilaiAlternatif as $key => $na)
                         <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
+                            <th scope="row">{{ $key+1 }}</th>
+                            <td>Periode ke-{{ $na->periode }}</td>
+                            <td>{{ date('d F Y', strtotime($na->waktu)) }}</td>
+                            <td><a href="{{ route('penilaian.proses', $na->id) }}" type="button" class="btn btn-round btn-info btn-sm"><i class="fa fa-eye"></i> Detail</a></td>
                         </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Larry</td>
-                            <td>the Bird</td>
-                            <td>@twitter</td>
-                        </tr>
+                      @endforeach
                     </tbody>
                 </table>
             </div>

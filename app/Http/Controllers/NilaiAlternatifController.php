@@ -280,7 +280,7 @@ class NilaiAlternatifController extends Controller
         $step1 = [];
         $kriteria = Kriteria::all();
         $alternatif = Alternatif::all();
-
+        $periodeData = NilaiAlternatif::find($periode);
         // normalisasi bobot
         foreach ($kriteria as $key => $k) {
             $tmp = 0;
@@ -320,6 +320,19 @@ class NilaiAlternatifController extends Controller
                 $step2[$key]->jenis[$kunci] = $nilai->jenis;
             }
         }
+        // dd($step2);
+        $subKriteriaData = [];
+        foreach ($kriteria as $key => $value) {
+            $sub = SubKriteria::where('kriteria_id',$value->id)->get();
+            foreach ($sub as $key2 => $s) {
+                if(!isset($subKriteriaData[$key])) {
+                    $subKriteriaData[$key] = new \StdClass();
+                }
+                $subKriteriaData[$key]->kriteria = $value->nama;
+                $subKriteriaData[$key]->sub_kriteria[$key2] = $s->keterangan;  
+                $subKriteriaData[$key]->bobot_sub[$key2] = $s->bobot;  
+            }
+        }
 
     // perhitungan vector S
         $step3 = [];
@@ -352,7 +365,7 @@ class NilaiAlternatifController extends Controller
             $step3[$key]->nilai = $tmp2;
             $jumVectorS+= $tmp2;
         }
-        
+
         // perhitungan vector V
         $step4 = [];
         foreach ($step3 as $key => $value) {
@@ -360,12 +373,25 @@ class NilaiAlternatifController extends Controller
                 $step4[$key] = new \StdClass();
             }
             $step4[$key]->nilai = $value->nilai/$jumVectorS;
-            $step4[$key]->perhitungan = $value->nilai.'/'.$jumVectorS;
+            $step4[$key]->perhitungan = $value->nilai.' / '.$jumVectorS;
             $step4[$key]->alternatif = $value->alternatif;
         }
 
         // perankingan
         $sort = collect($step4);
         $ranking = $sort->sortByDesc('nilai');
+
+        return view('nilai_alternatif.nilai', [
+            'kriteria' => $kriteria,
+            'subKriteriaData' => $subKriteriaData,
+            'step1' => $step1,
+            'step2' => $step2,
+            'step3' => $step3,
+            'step4' => $step4,
+            'ranking' => $ranking,
+            'jumBobot' => $jumBobot,
+            'periodeData' => $periodeData,
+            'jumVectorS' => $jumVectorS
+        ]);
     }
 }
