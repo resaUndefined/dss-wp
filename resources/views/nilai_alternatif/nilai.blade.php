@@ -3,6 +3,44 @@
 @section('title', 'Hasil Penilaian')
 
 @section('content')
+<script src="https://raw.githubusercontent.com/nnnick/Chart.js/master/dist/Chart.bundle.js"></script>
+<script>
+    var year = <?php echo $label; ?>;
+    console.log(year);
+    var data_click = <?php echo $dataset; ?>;
+
+    var barChartData = {
+        labels: year,
+        datasets: [{
+            label: 'Alternatif',
+            color: "rgb(255, 99, 132)",
+            backgroundColor: "rgb(255, 99, 132)",
+            data: data_click
+        }]
+    };
+
+    window.onload = function() {
+        var ctx = document.getElementById("canvas").getContext("2d");
+        window.myBar = new Chart(ctx, {
+            type: 'bar',
+            data: barChartData,
+            options: {
+                elements: {
+                    rectangle: {
+                        borderWidth: 2,
+                        borderColor: 'rgb(0, 255, 0)',
+                        borderSkipped: 'bottom'
+                    }
+                },
+                responsive: true,
+                title: {
+                    display: true,
+                    text: 'Grafik Hasil Penilaian'
+                }
+            }
+        });
+    };
+</script>
     <div class="right_col" role="main">
       <!-- top tiles -->
       <div class="col-md-12 col-sm-12 col-xs-12">
@@ -213,6 +251,19 @@
               </div>
             </div>
             {{-- end content 6 --}}
+            {{-- content 7 --}}
+            <div class="x_panel">
+              <div class="x_title">
+                <h2>Grafik Hasil Penilaian</h2>
+                <div class="clearfix"></div>
+              </div>
+              <div class="x_content">
+                <div class="table-responsive">
+                  <canvas id="canvas" height="280" width="600"></canvas>
+                  </div>
+              </div>
+            </div>
+            {{-- end content 7 --}}
           </div>
         </div>
       </div>

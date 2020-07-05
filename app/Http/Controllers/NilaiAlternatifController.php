@@ -12,6 +12,8 @@ use App\Model\Alternatif;
 use App\Model\Penilaian;
 use DB;
 use Validator;
+use App\Charts\PenilaianChart;
+
 
 class NilaiAlternatifController extends Controller
 {
@@ -380,6 +382,18 @@ class NilaiAlternatifController extends Controller
         // perankingan
         $sort = collect($step4);
         $ranking = $sort->sortByDesc('nilai');
+        $label = [];
+        $dataset = [];
+        foreach ($ranking as $key => $value) {
+            array_push($label, $value->alternatif);
+            array_push($dataset, $value->nilai);
+        }
+
+        $penilaianChart = new PenilaianChart;
+        $penilaianChart->labels($label);
+        $penilaianChart->dataset('Hasil Penilaian', 'line', $dataset)
+                         ->color("rgb(255, 99, 132)")
+                        ->backgroundcolor("rgb(255, 99, 132)");
 
         return view('nilai_alternatif.nilai', [
             'kriteria' => $kriteria,
@@ -391,7 +405,10 @@ class NilaiAlternatifController extends Controller
             'ranking' => $ranking,
             'jumBobot' => $jumBobot,
             'periodeData' => $periodeData,
-            'jumVectorS' => $jumVectorS
+            'jumVectorS' => $jumVectorS,
+            'penilaianChart' => $penilaianChart,
+            'label' => json_encode($label),
+            'dataset' => json_encode($dataset,JSON_NUMERIC_CHECK)
         ]);
     }
 }
