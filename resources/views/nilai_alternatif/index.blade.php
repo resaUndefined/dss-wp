@@ -79,7 +79,7 @@
 
               <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12">
-                  <div>Menampilkan {{ $nilaiAlternatif->firstItem() }} sampai {{ $nilaiAlternatif->lastItem() }} dari total {{ $nilaiAlternatif->total() }} user</div>
+                  <div>Menampilkan {{ $nilaiAlternatif->firstItem() }} sampai {{ $nilaiAlternatif->lastItem() }} dari total {{ $nilaiAlternatif->total() }} data</div>
                 </div>
               </div>
               <br>

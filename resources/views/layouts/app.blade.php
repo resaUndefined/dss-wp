@@ -16,7 +16,7 @@
 "https://1.bp.blogspot.com/-adPwkANrQu0/XWXmz-EQuqI/AAAAAAAAAiA/mgDMq0jgdd8K-UBpt5H7SRLmdifYkbXCgCLcBGAs/s1600/38.AMIKOMY.png" 
         type = "image/x-icon">
     {{-- ChartScript --}}
-    @if($penilaianChart)
+    @if(isset($penilaianChart))
     {!! $penilaianChart->script() !!}
     @endif
 </head>

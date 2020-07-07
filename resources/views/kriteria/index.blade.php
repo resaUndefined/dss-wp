@@ -82,7 +82,7 @@
 
               <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12">
-                  <div>Menampilkan {{ $kriteria->firstItem() }} sampai {{ $kriteria->lastItem() }} dari total {{ $kriteria->total() }} user</div>
+                  <div>Menampilkan {{ $kriteria->firstItem() }} sampai {{ $kriteria->lastItem() }} dari total {{ $kriteria->total() }} data</div>
                 </div>
               </div>
               <br>

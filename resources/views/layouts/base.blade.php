@@ -64,6 +64,7 @@
                 <h3>Menu</h3>
                 <ul class="nav side-menu">
                   <li><a href="{{ route('home') }}"><i class="fa fa-home"></i> Dashboard </a></li>
+                  <li><a href="{{ route('datamining.index') }}"><i class="fa fa-flask"></i> Data Mining </a></li>
                   <li><a href="{{ route('alternatif.index') }}"><i class="fa fa-group"></i> Alternatif </a></li>
                   <li><a href="{{ route('kriteria.index') }}"><i class="fa fa-edit"></i> Kriteria </a></li>
                   <li><a href="{{ route('nilai-alternatif.index') }}"><i class="fa fa-bar-chart"></i> Nilai Alternatif </a></li>

@@ -43,4 +43,7 @@ Route::group(['middleware' => ['web', 'auth']], function(){
 	Route::get(
 			'/penilaian/{periode}/proses',
 			'NilaiAlternatifController@proses_penilaian')->name('penilaian.proses');
+	Route::get(
+			'/data-mining',
+			'DataMiningController@index')->name('datamining.index');
 });
