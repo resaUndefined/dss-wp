@@ -216,7 +216,19 @@ class NilaiAlternatifController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $periode = NilaiAlternatif::find($id);
+        $penilaian = Penilaian::where('periode_id',$periode->id)->get();
+
+        if (count($penilaian) > 0) {
+            foreach ($penilaian as $key => $value) {
+                $value->delete();
+            }
+            $periode->delete();
+        } else {
+            $periode->delete();
+        }
+        
+        return redirect()->route('nilai-alternatif.index')->with('sukses', 'Periode penilaian berhasil dihapus');
     }
 
 

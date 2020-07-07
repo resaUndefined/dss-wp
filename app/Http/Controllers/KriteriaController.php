@@ -175,7 +175,28 @@ class KriteriaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $kriteriaDelete = Kriteria::find($id);
+        $subKriteriaDelete = SubKriteria::where('kriteria_id',$kriteriaDelete->id)->get();
+        if (count($subKriteriaDelete) > 0) {
+            foreach ($subKriteriaDelete as $key => $value) {
+                $penilaian = Penilaian::where([
+                        'kriteria_id' => $kriteriaDelete->id,
+                        'sub_kriteria_id' => $value->id
+                ])->get();
+                if (count($penilaian) > 0) {
+                    foreach ($penilaian as $key2 => $value2) {
+                        $value2->delete();
+                    }
+                    $value->delete();
+                } else {
+                    $value->delete();
+                }
+            }
+            $kriteriaDelete->delete();
+        } else {
+            $kriteriaDelete->delete();
+        }
+        return redirect()->route('kriteria.index')->with('sukses', 'kriteria dan Sub Kriteria berhasil dihapus');
     }
 
 

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\Model\Alternatif;
+use App\Model\Penilaian;
 use DB;
 use Validator;
 
@@ -222,6 +223,19 @@ class AlternatifController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $alternatif = Alternatif::find($id);
+        $penilaian = Penilaian::where('alternatif_id',$alternatif->id)->get();
+
+        if (count($penilaian) > 0) {
+            foreach ($penilaian as $key => $value) {
+                $value->delete();
+            }
+            $alternatif->delete();
+        } else {
+            $alternatif->delete();
+        }
+
+        return redirect()->route('alternatif.index')->with('sukses', 'Alternatif berhasil dihapus');    
     }
+
 }
