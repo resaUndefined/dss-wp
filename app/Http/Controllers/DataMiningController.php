@@ -9,6 +9,10 @@ use App\Model\DataMining;
 use App\Model\RiwayatPenyakit;
 use DB;
 use Validator;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\UmurExport;
+use App\Exports\RiwayatExport;
+
 
 class DataMiningController extends Controller
 {
@@ -28,6 +32,18 @@ class DataMiningController extends Controller
                 'riwayat' => $riwayat,
                 'datamining' => $datamining
         ]);
+    }
+
+
+    public function export_usia($type)
+    {
+        return Excel::download(new UmurExport, 'dataset_umur.'.$type);
+    }
+
+
+    public function export_riwayat($type)
+    {
+        return Excel::download(new RiwayatExport, 'dataset_riwayat_penyakit.'.$type);
     }
 
 }

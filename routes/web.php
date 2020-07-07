@@ -46,4 +46,10 @@ Route::group(['middleware' => ['web', 'auth']], function(){
 	Route::get(
 			'/data-mining',
 			'DataMiningController@index')->name('datamining.index');
+	Route::get(
+			'/data-mining/export-usia/{type}',
+			'DataMiningController@export_usia')->name('datamining.usia');
+	Route::get(
+			'/data-mining/export-riwayat/{type}',
+			'DataMiningController@export_riwayat')->name('datamining.riwayat');
 });

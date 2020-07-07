@@ -49,9 +49,18 @@
               <div class="clearfix"></div>
             </div>
             <div class="x_content">
-              <div class="col-lg-6 col-md-6 col-sm-6">
-                <a href="#" type="button" class="btn btn-round btn-success btn-sm"><i class="fa fa-download"></i> Export Data Umur</a>
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="col-lg-4 col-md-4 col-sm-12 pull-left">
+                  <a href="{{ route('datamining.usia', ['type'=>'xls']) }}" type="button" class="btn btn-round btn-success btn-sm pull-right"><i class="fa fa-download"></i> Export Data Umur as xls</a>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                  <a href="{{ route('datamining.usia', ['type'=>'xlsx']) }}" type="button" class="btn btn-round btn-success btn-sm pull-right"><i class="fa fa-download"></i> Export Data Umur as xlsx</a>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                  <a href="{{ route('datamining.usia', ['type'=>'csv']) }}" type="button" class="btn btn-round btn-success btn-sm pull-right"><i class="fa fa-download"></i> Export Data Umur as csv</a>
+                </div>
               </div>
+              <hr/><br/>
               <table class="table table-hover">
                 <thead>
                   <tr>
@@ -86,11 +95,23 @@
                     </div>
                 </div>
               </div>
-
-              {{-- batas umur --}}
-              <div class="col-lg-6 col-md-6 col-sm-6 pull-left">
-                <a href="#" type="button" class="btn btn-round btn-success btn-sm"><i class="fa fa-download"></i> Export Data Riwayat Penyakit</a>
+              <div class="row">
+                <div class="clearfix"></div>
+                <br><hr>
               </div>
+              {{-- batas umur --}}
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="col-lg-4 col-md-4 col-sm-12 pull-left">
+                  <a href="{{ route('datamining.riwayat', ['type'=>'xls']) }}" type="button" class="btn btn-round btn-success btn-sm pull-right"><i class="fa fa-download"></i> Export Riwayat Penyakit as xls</a>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                  <a href="{{ route('datamining.riwayat', ['type'=>'xlsx']) }}" type="button" class="btn btn-round btn-success btn-sm pull-right"><i class="fa fa-download"></i> Export Riwayat Penyakit as xlsx</a>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                  <a href="{{ route('datamining.riwayat', ['type'=>'csv']) }}" type="button" class="btn btn-round btn-success btn-sm pull-right"><i class="fa fa-download"></i> Export Riwayat Penyakit as csv</a>
+                </div>
+              </div>
+              <hr><br>
               <table class="table table-hover">
                 <thead>
                   <tr>
