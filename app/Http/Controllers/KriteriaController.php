@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\User;
 use App\Model\Kriteria;
 use App\Model\SubKriteria;
+use App\Model\Penilaian;
 use DB;
 use Validator;
 
