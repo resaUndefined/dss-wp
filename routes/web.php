@@ -52,4 +52,7 @@ Route::group(['middleware' => ['web', 'auth']], function(){
 	Route::get(
 			'/data-mining/export-riwayat/{type}',
 			'DataMiningController@export_riwayat')->name('datamining.riwayat');
+	Route::delete(
+			'/sub-kriteria/{id}',
+			'KriteriaController@sub_kriteria_delete')->name('subkriteria.destroy');
 });

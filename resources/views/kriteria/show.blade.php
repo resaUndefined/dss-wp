@@ -159,23 +159,39 @@
               </div>
             </div>
           </div>
-  <script>
-      // $('.add').on('click', add);
-      // $('.remove').on('click', remove);
-      
-      $(document).ready(function(){
-        $(document).on('click', '.add', function() {
-          var html = '';
-          html += '<tr>';
-          html += '<td><input type="text" name="sub_kriteria[]" class="form-control item_nominal" required=""></td>';
-          html += '<td><input type="number" name="sub_bobot[]" class="form-control item_ket" required=""></td>';
-          html += '<td><button type="button" name="remove" class="remove btn btn-round btn-danger btn-sm"><i class="fa fa-minus"></i></button></td></tr>';
-          $('#item_table').append(html);
-        });
-
-        $(document).on('click', '.remove', function(){
-          $(this).closest('tr').remove();
-        });
-      });
-    </script>
+  <div id="DeleteModal" class="modal fade text-danger" role="dialog">
+   <div class="modal-dialog ">
+     <!-- Modal content-->
+     <form action="" id="deleteForm" method="post">
+         <div class="modal-content">
+             <div class="modal-header bg-danger">
+                 <button type="button" class="close" data-dismiss="modal">&times;</button>
+                 <h4 class="modal-title text-center">DELETE CONFIRMATION</h4>
+             </div>
+             <div class="modal-body">
+                 {{ csrf_field() }}
+                 {{ method_field('DELETE') }}
+                 <p class="text-center">Apa kamu yakin ingin menghapus sub kriteria ini ?</p>
+             </div>
+             <div class="modal-footer">
+                 <center>
+                     <button type="button" class="btn btn-success" data-dismiss="modal">Batal</button>
+                     <button type="submit" name="" class="btn btn-danger" data-dismiss="modal" onclick="formSubmit()">Ya, Hapus</button>
+                 </center>
+             </div>
+         </div>
+     </form>
+   </div>
+  </div>
+<script>
+  function deleteData(id){
+       var id = id;
+       var url = '{{ route("subkriteria.destroy", ":id") }}';
+       url = url.replace(':id', id);
+       $("#deleteForm").attr('action', url);
+     }
+    function formSubmit(){
+         $("#deleteForm").submit();
+    }
+  </script>
 @endsection

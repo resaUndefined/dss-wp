@@ -289,4 +289,22 @@ class KriteriaController extends Controller
                             ->with('gagal', 'Sub kriteria gagal diupdate');
         }
     }
+
+
+    public function sub_kriteria_delete($id)
+    {
+        $subKriteria = SubKriteria::find($id);
+        $k = $subKriteria->kriteria_id;
+        $penilaian = Penilaian::where('sub_kriteria_id',$id)->get();
+
+        if (count($penilaian) > 0) {
+            foreach ($penilaian as $key => $value) {
+                $value->delete();
+            }
+            $subKriteria->delete();
+        } else {
+            $subKriteria->delete();
+        }
+        return redirect()->route('kriteria.edit', $k)->with('sukses', 'Sub Kriteria berhasil dihapus');
+    }
 }
