@@ -17,6 +17,7 @@ Route::get('/', function () {
 
 Auth::routes();
 Route::post('/login/custom', 'LoginController@login')->name('login.custom');
+Route::get('/logout', 'Auth\LoginController@logout')->name('logout' );
 Route::group(['middleware' => ['web', 'auth']], function(){
 	Route::get('/home', 'HomeController@index')->name('home');
 	Route::resource('alternatif', 'AlternatifController');
